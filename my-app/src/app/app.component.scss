@@ -1,0 +1,187 @@
+@mixin main-button {
+  border: 2px solid black;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 6px 12px;
+}
+
+.title-block {
+  width: 50%;
+  margin: 3% auto 3%;
+  text-align: center;
+}
+
+.possibilities-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+}
+
+.file-upload-block {
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label {
+    border: 2px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 20px 12px;
+    cursor: pointer;
+  }
+
+  label:hover {
+    background: #ffd698;
+  }
+}
+
+.examples-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  button {
+    @include main-button;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background: #ffd698;
+  }
+}
+
+.or-write-block {
+  display: flex;
+  justify-content: center;
+  font-size: 26px;
+  text-align: center;
+}
+
+.algorithm-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 2%;
+
+  .input-str-block {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      .label-1 {
+        text-align: left;
+      }
+
+      .label-2 {
+        text-align: right;
+      }
+
+      input {
+        margin-top: 10px;
+        @include main-button;
+        font-size: 16px;
+        background: white;
+      }
+    }
+  }
+
+  button {
+    width: 200px;
+    @include main-button;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background: greenyellow;
+  }
+}
+
+.settings-panel-block {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    @include main-button;
+  }
+
+  button:hover {
+    background: #ffd698;
+  }
+}
+
+.algorithm-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.history-block {
+  margin-top: 4%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+
+  .history-elem {
+    padding: 20px;
+    display: inline-block;
+    border: 2px solid black;
+    border-radius: 20px;
+
+    .history-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background: #ffd698;
+    }
+
+    h3 {
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .input-str-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label-2 {
+    text-align: left;
+  }
+
+  .possibilities-block {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .settings-panel-block {
+    flex-wrap: wrap;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}

@@ -1,0 +1,79 @@
+<div class="title-block">
+  <h1>Алгоритм Дамерау-Левенштейна</h1>
+  <p>Ві́дстань Левенште́йна у теорії інформації і комп'ютерній лінгвістиці міра відмінності двох послідовностей символів
+    (рядків). Обчислюється як мінімальна кількість операцій вставки, видалення і заміни, необхідних для перетворення
+    одної послідовності в іншу.</p>
+</div>
+
+<div class="possibilities-block">
+  <div class="file-upload-block">
+    <label for="fileStr">Завантажити файл</label>
+    <input type="file" (change)="onFileSelected($event)" id="fileStr"/>
+  </div>
+  <div class="or-use-block"><h3>або спробувати наші приклади</h3></div>
+  <div class="examples-block">
+    <button (click)="runExample('машина', 'мотоцикл')">Перший приклад (машина, мотоцикл)</button>
+    <button (click)="runExample('олень', 'оливка')">Другий приклад (олень, оливка)</button>
+    <button (click)="runExample('привіт', 'принтер')">Третій приклад (привіт, принтер)</button>
+  </div>
+</div>
+
+<div class="or-write-block">Або самостійно можете написати строки</div>
+
+<form id="levenshteinForm" class="algorithm-form">
+  <div class="input-str-block">
+    <div>
+      <label class="label-1" for="inputStr1">String 1:</label>
+      <input type="text" id="inputStr1" placeholder="Введіть перший рядок" required>
+    </div>
+
+    <div>
+      <label class="label-2" for="inputStr2">String 2:</label>
+      <input type="text" id="inputStr2" placeholder="Введіть другий рядок" required>
+    </div>
+  </div>
+  <button type="button" (click)="runAlgorithm()">Запустити алгоритм</button>
+</form>
+
+<div class="settings-panel-block" *ngIf="isAlgorithmRunning">
+  <button (click)="nextStep()">Наступний крок</button>
+  <button (click)="runInMoment()">Кінцевий результат</button>
+  <button (click)="pause()" *ngIf="!stopRunning">Пауза</button>
+  <button (click)="pause()" *ngIf="stopRunning">Продовжити</button>
+  <button (click)="stepBack()">Крок назад</button>
+  <button (click)="faster()">Швидше</button>
+  <button (click)="slower()">Повільніше</button>
+</div>
+
+<div *ngIf="isAlgorithmRunning" class="algorithm-result">
+  <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 1: {{str1}}</div>
+  <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 2: {{str2}}</div>
+  <ng-container *ngIf="counter > 0">
+    <h2 [ngClass]="{'fade-in': isAlgorithmRunning}" style="text-align: center">Матриця відстані Левенштейна:</h2>
+    <div [ngClass]="{'fade-in': isAlgorithmRunning}" *ngFor="let row of matrixRow;">
+      <div>{{row}}</div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="counter > 1">
+    <h3 [ngClass]="{'fade-in': isAlgorithmRunning}">Операції:</h3>
+    <div [ngClass]="{'fade-in': isAlgorithmRunning}" *ngFor="let operation of operations;">
+      <div>{{operation}}</div>
+    </div>
+  </ng-container>
+
+  <h3 *ngIf="counter > 2" [ngClass]="{'fade-in': isAlgorithmRunning}">Мінімільна кількість
+    операцій: {{minOperations}}</h3>
+</div>
+
+<div class="history-block">
+  <div class="history-elem">
+    <h3>Історія</h3>
+    <div *ngFor="let elem of historyArr;" class="history-row">
+      <div>{{elem}}</div>
+      <button (click)="fillInputFields(elem)">try again</button>
+    </div>
+  </div>
+</div>
+
+
+
