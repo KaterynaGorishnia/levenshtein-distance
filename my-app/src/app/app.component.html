@@ -1,79 +1,146 @@
+<div class="nav-block">
+  <div class="nav-1" (click)="changePage('describeAlgorithm')">Описа алгоритму</div>
+  <div class="nav-2" (click)="changePage('main')">Головна сторінка</div>
+  <div class="nav-3" (click)="changePage('describeInterface')">Опис інтерфейсу</div>
+</div>
 <div class="title-block">
   <h1>Алгоритм Дамерау-Левенштейна</h1>
-  <p>Ві́дстань Левенште́йна у теорії інформації і комп'ютерній лінгвістиці міра відмінності двох послідовностей символів
-    (рядків). Обчислюється як мінімальна кількість операцій вставки, видалення і заміни, необхідних для перетворення
-    одної послідовності в іншу.</p>
-</div>
-
-<div class="possibilities-block">
-  <div class="file-upload-block">
-    <label for="fileStr">Завантажити файл</label>
-    <input type="file" (change)="onFileSelected($event)" id="fileStr"/>
+  <div *ngIf="page==='describeAlgorithm'">
+    <p>
+      Алгоритм Дамерау — Левенштейна – це математичний метод, розроблений для розв'язання задачі вимірювання відстані
+      між
+      двома рядками символів. Основна мета цього алгоритму полягає в визначенні найменшої кількості операцій (вставки,
+      вилучення, заміни та транспозиції символів), необхідних для перетворення одного рядка в інший. Зазвичай він
+      використовується для порівняння схожості текстових рядків, коригування орфографічних помилок чи в області обробки
+      природної мови.
+    </p>
+    <p>Алгоритм Дамерау — Левенштейна виявляється надзвичайно корисним у великому
+      спектрі застосувань, включаючи пошук
+      схожих слів, автоматичне виправлення помилок у тексті, аналіз DNA-послідовностей та інші області, де важливо
+      оцінювати схожість або різницю між двома текстовими об'єктами.
+    </p>
+    <p>Алгоритм Дамерау-Левенштейна є модифікацією класичного алгоритму Левенштейна, який призначений для вимірювання
+      різних між двома рядками. Ім'я алгоритму походить від імені його творців - Фредеріка Дамерау та Володимира
+      Левенштейна.</p>
+    <p>У 1964 році Володимир Левенштейн, радянський математик, у своїй статті "Редакторские расстояния между словами"
+      запропонував алгоритм для вимірювання розниць між двома рядками шляхом підрахунку мінімальної кількості
+      редакторських операцій, необхідних для перетворення одного рядка в інші. Редакторські операції можуть включати
+      вставку, видалення та заміну символів.</p>
+    <p>Фредерік Дамерау, американський інформатик, вніс свій вклад в алгоритм у 1974 році, запропонувавши додаткову
+      операцію - транспозицію (перестановку) сусідніх символів. Це дозволяє участь у випадках, коли символи були
+      переставлені місцями в словах.</p>
+    <p>Таким чином, алгоритм Дамерау-Левенштейна включає в себе операції вставки, видалення, заміни та транспозиції, а
+      мінімальна кількість цих операцій між двома рядками визначає їх редакторський відстань. Цей алгоритм передбачає
+      застосування в різних, таких як пошук схожих рядків, виправлення опечаток та інші додатки, де потрібно вимірювання
+      збігів між текстовими даними.</p>
   </div>
-  <div class="or-use-block"><h3>або спробувати наші приклади</h3></div>
-  <div class="examples-block">
-    <button (click)="runExample('машина', 'мотоцикл')">Перший приклад (машина, мотоцикл)</button>
-    <button (click)="runExample('олень', 'оливка')">Другий приклад (олень, оливка)</button>
-    <button (click)="runExample('привіт', 'принтер')">Третій приклад (привіт, принтер)</button>
+  <div *ngIf="page==='describeInterface'">
+    <p>На цьому сайті ви матимете можливість не лише спостерігати за роботою алгоритму Дамерау-Левенштейна, але й
+      активно взаємодіяти з ним.
+    </p>
+    <p>Вам доступні різноманітні варіанти використання: ви можете користуватися нашими готовими прикладами,
+      завантажувати файли для аналізу або вручну вводити свої приклади для більш глибокого розуміння алгоритму.</p>
+    <p>Ми надаємо вам можливість контролювати процес, регулюючи швидкість виконання, ставлячи його на паузу, переходячи
+      поетапно чи одразу переглядаючи кінцевий результат.</p>
+    <p>Крім того, вас обслуговує історія ваших запитів, що дозволяє легко відтворювати їх знову за один клік. Ваш
+      взаємодія з алгоритмом стає більш гнучкою та зручною завдяки можливості взаємного контролю та аналізу роботи
+      алгоритму.</p>
   </div>
 </div>
-
-<div class="or-write-block">Або самостійно можете написати строки</div>
-
-<form id="levenshteinForm" class="algorithm-form">
-  <div class="input-str-block">
+<div *ngIf="page==='main'">
+  <div class="mode-block">
     <div>
-      <label class="label-1" for="inputStr1">String 1:</label>
-      <input type="text" id="inputStr1" placeholder="Введіть перший рядок" required>
-    </div>
-
-    <div>
-      <label class="label-2" for="inputStr2">String 2:</label>
-      <input type="text" id="inputStr2" placeholder="Введіть другий рядок" required>
+      <label style="margin-right: 10px" for="modeSelect">Оберіть режим:</label>
+      <select id="modeSelect" [(ngModel)]="selectedMode" (change)="onModeChange()">
+        <option value="simple">Простий</option>
+        <option value="detailed">Детальний</option>
+      </select>
     </div>
   </div>
-  <button type="button" (click)="runAlgorithm()">Запустити алгоритм</button>
-</form>
 
-<div class="settings-panel-block" *ngIf="isAlgorithmRunning">
-  <button (click)="nextStep()">Наступний крок</button>
-  <button (click)="runInMoment()">Кінцевий результат</button>
-  <button (click)="pause()" *ngIf="!stopRunning">Пауза</button>
-  <button (click)="pause()" *ngIf="stopRunning">Продовжити</button>
-  <button (click)="stepBack()">Крок назад</button>
-  <button (click)="faster()">Швидше</button>
-  <button (click)="slower()">Повільніше</button>
-</div>
-
-<div *ngIf="isAlgorithmRunning" class="algorithm-result">
-  <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 1: {{str1}}</div>
-  <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 2: {{str2}}</div>
-  <ng-container *ngIf="counter > 0">
-    <h2 [ngClass]="{'fade-in': isAlgorithmRunning}" style="text-align: center">Матриця відстані Левенштейна:</h2>
-    <div [ngClass]="{'fade-in': isAlgorithmRunning}" *ngFor="let row of matrixRow;">
-      <div>{{row}}</div>
+  <div class="possibilities-block">
+    <div class="file-upload-block possib-block">
+      <div class="hint">* сюди ви можете завантажити .txt файл з потрібними рядками</div>
+      <label for="fileStr">Завантажити файл</label>
+      <input type="file" (change)="onFileSelected($event)" id="fileStr"/>
     </div>
-  </ng-container>
-  <ng-container *ngIf="counter > 1">
-    <h3 [ngClass]="{'fade-in': isAlgorithmRunning}">Операції:</h3>
-    <div [ngClass]="{'fade-in': isAlgorithmRunning}" *ngFor="let operation of operations;">
-      <div>{{operation}}</div>
+    <div class="or-use-block possib-block"><h3>або спробувати наші приклади</h3></div>
+    <div class="examples-block possib-block">
+      <div class="hint">* тут ви можете спробувати роботу алгоритму на заготовлених прикладах</div>
+      <button (click)="runExample('абстракція', 'картина')">Перший приклад (абстракція, картина)</button>
+      <button (click)="runExample('рекомендація', 'реакція')">Другий приклад (рекомендація, реакція)</button>
+      <button (click)="runExample('експоненційний', 'поліном')">Третій приклад (експоненційний, поліном)</button>
     </div>
-  </ng-container>
+  </div>
 
-  <h3 *ngIf="counter > 2" [ngClass]="{'fade-in': isAlgorithmRunning}">Мінімільна кількість
-    операцій: {{minOperations}}</h3>
-</div>
+  <div class="or-write-block">Або самостійно можете написати рядки</div>
+  <div class="hint">* сюди ви можете написати слова, які ви хочете протестувати</div>
 
-<div class="history-block">
-  <div class="history-elem">
-    <h3>Історія</h3>
-    <div *ngFor="let elem of historyArr;" class="history-row">
-      <div>{{elem}}</div>
-      <button (click)="fillInputFields(elem)">try again</button>
+  <form id="levenshteinForm" class="algorithm-form">
+    <div class="input-str-block">
+      <div>
+        <label class="label-1" for="inputStr1">String 1:</label>
+        <input type="text" id="inputStr1" placeholder="Введіть перший рядок" required>
+      </div>
+
+      <div>
+        <label class="label-2" for="inputStr2">String 2:</label>
+        <input type="text" id="inputStr2" placeholder="Введіть другий рядок" required>
+      </div>
+    </div>
+    <button type="button" (click)="runAlgorithm()">Запустити алгоритм</button>
+    <div class="hint">* при натисканні цієї кнопки алгоритм почне працювати</div>
+  </form>
+
+  <div class="settings-panel-block" *ngIf="isAlgorithmRunning">
+    <button *ngIf="currentOperationIndex > 1" (click)="stepBack()">Крок назад</button>
+    <button *ngIf="currentOperationIndex < operations.length - 1" (click)="nextOperationStep()">Наступний крок</button>
+    <button (click)="runInMoment()">Кінцевий результат</button>
+    <button (click)="pause()" *ngIf="!stopRunning">Пауза</button>
+    <button (click)="pause()" *ngIf="stopRunning">Продовжити</button>
+    <button (click)="runOperationsWithInterval()">Автоматичне виконання</button>
+    <button (click)="slower()">Повільніше</button>
+    <button (click)="faster()">Швидше</button>
+  </div>
+
+  <div *ngIf="isAlgorithmRunning" class="algorithm-result">
+    <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 1: {{str1}}</div>
+    <div [ngClass]="{'fade-in': isAlgorithmRunning}">Слово 2: {{str2}}</div>
+    <ng-container *ngIf="counter > 0 && selectedMode=='detailed'">
+      <h2 [ngClass]="{'fade-in': isAlgorithmRunning}" style="text-align: center">Матриця відстані Левенштейна:</h2>
+      <div class="matrix-row" [ngClass]="{'fade-in': isAlgorithmRunning}" *ngFor="let row of matrixRow;">
+        <div style="width: 30px" class="matrix-cell" *ngFor="let cell of row">
+          {{cell}}
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="counter > 1 && selectedMode=='detailed'">
+      <h3 [ngClass]="{'fade-in': isAlgorithmRunning}">Операції:</h3>
+      <div [ngClass]="{'fade-in': isAlgorithmRunning}"
+           *ngFor="let operation of operations.slice(0, currentOperationIndex)">
+        <div>{{operation}}</div>
+      </div>
+      <button (click)="nextOperationStep()" *ngIf="currentOperationIndex < operations.length - 1 && showNextStep">
+        Наступний крок
+      </button>
+    </ng-container>
+
+    <h3 *ngIf="(counter > 2 && currentOperationIndex >= operations.length - 1) || selectedMode=='simple'"
+        [ngClass]="{'fade-in': isAlgorithmRunning}">Мінімільна кількість
+      операцій: {{minOperations}}</h3>
+  </div>
+
+  <div class="history-block">
+    <div class="history-elem">
+      <h3>Історія</h3>
+      <div *ngFor="let elem of historyArr;" class="history-row">
+        <div>{{elem}}</div>
+        <button (click)="fillInputFields(elem)">Спробувати знову</button>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 

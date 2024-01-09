@@ -1,12 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -18,9 +19,18 @@ export class AppComponent {
   matrixRow: any[] = [];
   operations: string[] = [];
   minOperations: number;
+  currentOperationIndex: number = 1;
   counter: number = 0;
   stopRunning: boolean = false;
   historyArr: string[] | undefined;
+  selectedMode: string = 'detailed';
+  showNextStep: boolean = true;
+  page: string = 'main'
+  @Output() modeChanged = new EventEmitter<string>();
+
+  onModeChange() {
+    this.modeChanged.emit(this.selectedMode);
+  }
 
   ngOnInit() {
     this.historyArr = this.getFromLocalStorage('arr');
@@ -33,13 +43,10 @@ export class AppComponent {
       const reader = new FileReader();
 
       reader.onload = () => {
-        // reader.result содержит содержимое файла
         const fileContent: string = reader.result as string;
 
-        // Разделение строки на два слова по запятой
         const words = fileContent.split(',');
 
-        // Извлечение первого и второго слова (если они существуют)
         this.str1 = words.length >= 1 ? words[0].trim() : '';
         this.str2 = words.length >= 2 ? words[1].trim() : '';
 
@@ -99,9 +106,13 @@ export class AppComponent {
   }
 
   printMatrix(matrix: string | any[]) {
+    this.matrixRow = [];
     for (let i = 0; i < matrix.length; i++) {
-      console.log(matrix[i].join('\t'));
-      this.matrixRow = [...this.matrixRow, matrix[i].join('\t')]
+      const row = [];
+      for (let j = 0; j < matrix[i].length; j++) {
+        row.push(matrix[i][j]);
+      }
+      this.matrixRow.push(row);
     }
   }
 
@@ -138,12 +149,38 @@ export class AppComponent {
     }
   }
 
+  runOperationsWithInterval(interval?: number) {
+    this.showNextStep = false;
+    if (interval) {
+      setInterval(() => {
+        if (!this.stopRunning) {
+          this.nextOperationStep();
+        }
+      }, interval)
+    } else {
+      setInterval(() => {
+        if (!this.stopRunning) {
+          this.nextOperationStep();
+        }
+      }, 2000)
+    }
+  }
+
+  nextOperationStep() {
+    this.currentOperationIndex++;
+  }
+
   nextStep() {
     this.counter = this.counter + 1;
   }
 
   runInMoment() {
     this.counter = 100;
+    this.currentOperationIndex = 100;
+  }
+
+  changePage(page: string) {
+    this.page = page
   }
 
   pause() {
@@ -152,15 +189,15 @@ export class AppComponent {
   }
 
   stepBack() {
-    this.counter = this.counter - 1;
+    this.currentOperationIndex--;
   }
 
   faster() {
-    this.runWithInterval(500)
+    this.runOperationsWithInterval(500)
   }
 
   slower() {
-    this.runWithInterval(5000)
+    this.runOperationsWithInterval(5000)
   }
 
   runExample(str1: string, str2: string) {
@@ -230,7 +267,6 @@ export class AppComponent {
 
   getFromLocalStorage(key: string): any[] | undefined {
     const storedValue = localStorage.getItem(key);
-    // Если значение существует, преобразовываем строку JSON обратно в массив
     return storedValue ? JSON.parse(storedValue) : [];
   }
 }
